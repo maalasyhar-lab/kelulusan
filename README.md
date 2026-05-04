@@ -1,2 +1,163 @@
-# kelulusan
-web
+[index.html](https://github.com/user-attachments/files/27340030/index.html)
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Pengumuman Kelulusan</title>
+
+<style>
+    body {
+        font-family: 'Segoe UI', sans-serif;
+        margin: 0;
+        padding: 0;
+        background: linear-gradient(rgba(0,100,0,0.7), rgba(0,0,0,0.7)),
+                    url('https://images.unsplash.com/photo-1524995997946-a1c2e315a42f');
+        background-size: cover;
+        background-position: center;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .box {
+        background: rgba(255,255,255,0.95);
+        padding: 30px;
+        border-radius: 15px;
+        width: 420px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+        text-align: center;
+        animation: fadeIn 1s ease-in-out;
+    }
+
+    h2 {
+        color: darkgreen;
+        margin-bottom: 10px;
+    }
+
+    input {
+        padding: 12px;
+        width: 85%;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+        margin-top: 10px;
+    }
+
+    button {
+        margin-top: 15px;
+        padding: 12px 25px;
+        background: linear-gradient(45deg, green, darkgreen);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: bold;
+        transition: 0.3s;
+    }
+
+    button:hover {
+        background: darkgreen;
+        transform: scale(1.05);
+    }
+
+    .result {
+        margin-top: 20px;
+        text-align: left;
+        font-size: 15px;
+        padding: 10px;
+        border-radius: 8px;
+    }
+
+    .lulus {
+        background: #e6ffe6;
+        border-left: 5px solid green;
+    }
+
+    .tidak {
+        background: #ffe6e6;
+        border-left: 5px solid red;
+    }
+
+    @keyframes fadeIn {
+        from {opacity: 0; transform: translateY(20px);}
+        to {opacity: 1; transform: translateY(0);}
+    }
+</style>
+
+</head>
+<body>
+
+<div class="box">
+    <h2>Pengumuman Kelulusan</h2>
+    <p>Masukkan NISN Anda</p>
+
+    <input type="text" id="nisn" placeholder="Masukkan NISN">
+    <br>
+    <button onclick="cekKelulusan()">Cek Kelulusan</button>
+
+    <div id="hasil" class="result"></div>
+</div>
+
+<script>
+const dataSiswa = {
+"0073829645": {nama:"ACHMAD BAGUS SURURI", status:"SELAMAT ANDA DINYATAKAN LULUS"},
+"0073782310": {nama:"CENDEKIA RAHMAH", status:"SELAMAT ANDA DINYATAKAN LULUS"},
+"0085413624": {nama:"DIAJENG FATIKHA MAULYDIA", status:"SELAMAT ANDA DINYATAKAN LULUS"},
+"0087085280": {nama:"DINDA SYAFIQOTUN NABILAH", status:"SELAMAT ANDA DINYATAKAN LULUS"},
+"0087066226": {nama:"DIVA FITRI PUTRI DIANA AL WAFA", status:"SELAMAT ANDA DINYATAKAN LULUS"},
+"0081917725": {nama:"INDAH FUYUDLUR ROHMANIYAH", status:"SELAMAT ANDA DINYATAKAN LULUS"},
+"0083057465": {nama:"M RIZQI AZIDAN", status:"SELAMAT ANDA DINYATAKAN LULUS"},
+"0086062961": {nama:"M SYAHRI RAMADHANI", status:"SELAMAT ANDA DINYATAKAN LULUS"},
+"0077397930": {nama:"MOCH. ALAND RIZQI ADINATA", status:"SELAMAT ANDA DINYATAKAN LULUS"},
+"0085510179": {nama:"MOHAMMAD NUR FALAQ MUJAMMIL", status:"SELAMAT ANDA DINYATAKAN LULUS"},
+"0071206300": {nama:"MUHAMMAD FU'AD HAMDI", status:"SELAMAT ANDA DINYATAKAN LULUS"},
+"0088435428": {nama:"MUHAMMAD KHABIBUL KHOIR", status:"SELAMAT ANDA DINYATAKAN LULUS"},
+"0088504003": {nama:"MUHAMMAD NAZIL RAMADHANI", status:"SELAMAT ANDA DINYATAKAN LULUS"},
+"0081032331": {nama:"MUHAMMAD RIF'AT", status:"SELAMAT ANDA DINYATAKAN LULUS"},
+"0083131089": {nama:"MUHAMMAD VIKI WAHYUDI", status:`BELUM LULUS, harus menyelesaikan hafalan tahlil.<br><br><b>Catatan:</b> Harap menghubungi guru yang bersangkutan dan menyelesaikannya terakhir hari Ahad, 10 Mei 2026. Apabila lebih dari tanggal tersebut maka dinyatakan tidak lulus.`},
+"0081641315": {nama:"NADYA SHAFWAH", status:"SELAMAT ANDA DINYATAKAN LULUS"},
+"0071512101": {nama:"AHSANU AMALA", status:"SELAMAT ANDA DINYATAKAN LULUS"},
+"0084902545": {nama:"FARIN PUTRI SUHADA", status:"SELAMAT ANDA DINYATAKAN LULUS"},
+"0084890384": {nama:"LAILA NAJMA ZAHIROH", status:"SELAMAT ANDA DINYATAKAN LULUS"},
+"0083993174": {nama:"M. ALVIN DWI SAPUTRA", status:"SELAMAT ANDA DINYATAKAN LULUS"},
+"085769479": {nama:"M. ULUL AZMI", status:"SELAMAT ANDA DINYATAKAN LULUS"},
+"0088044328": {nama:"MAHMUD AHMAD DINAJAD", status:"SELAMAT ANDA DINYATAKAN LULUS"},
+"0086521024": {nama:"MAULIDAH NUR RAHMANIAH", status:"SELAMAT ANDA DINYATAKAN LULUS"},
+"083079696": {nama:"MOH DWI HABIBULLAH", status:`BELUM LULUS, harus menyelesaikan tagihan pondok aswaja dan hafalan tahlil.<br><br><b>Catatan:</b> Harap menghubungi guru yang bersangkutan dan menyelesaikannya terakhir hari Ahad, 10 Mei 2026. Apabila lebih dari tanggal tersebut maka dinyatakan tidak lulus.`},
+"0085346133": {nama:"MUHAMMAD DIMAS ZULFI FIRDAUS", status:"SELAMAT ANDA DINYATAKAN LULUS"},
+"3070777859": {nama:"NAFIZATUN NICHLAH AL MA'RIFAH", status:"SELAMAT ANDA DINYATAKAN LULUS"},
+"0079696393": {nama:"NIHAYATUS SHOFAH", status:`BELUM LULUS, harus menyelesaikan hafalan tahlil.<br><br><b>Catatan:</b> Harap menghubungi guru yang bersangkutan dan menyelesaikannya terakhir hari Ahad, 10 Mei 2026. Apabila lebih dari tanggal tersebut maka dinyatakan tidak lulus.`},
+"3083887045": {nama:"NOER FADHILAH AL MAHLANY", status:"SELAMAT ANDA DINYATAKAN LULUS"},
+"0083696949": {nama:"RARA AZALIA CANDRANINGTYAS", status:"SELAMAT ANDA DINYATAKAN LULUS"},
+"0075084825": {nama:"RISDA CLARA AMELIA", status:"SELAMAT ANDA DINYATAKAN LULUS"},
+"0088059966": {nama:"SALWA FAJRIYAH", status:`BELUM LULUS, harus menyelesaikan hafalan tahlil.<br><br><b>Catatan:</b> Harap menghubungi guru yang bersangkutan dan menyelesaikannya terakhir hari Ahad, 10 Mei 2026. Apabila lebih dari tanggal tersebut maka dinyatakan tidak lulus.`},
+"0086291926": {nama:"SYAHRIEL CITRA YUDA", status:"SELAMAT ANDA DINYATAKAN LULUS"},
+"0083367131": {nama:"THALITA VAGHIYA SAHDA", status:"SELAMAT ANDA DINYATAKAN LULUS"}
+};
+
+function cekKelulusan() {
+    const nisn = document.getElementById("nisn").value.trim();
+    const hasil = document.getElementById("hasil");
+
+    if(dataSiswa[nisn]) {
+        let data = dataSiswa[nisn];
+
+        let kelas = data.status.includes("LULUS") && !data.status.includes("BELUM")
+            ? "lulus"
+            : "tidak";
+
+        hasil.className = "result " + kelas;
+
+        hasil.innerHTML = `
+            <p><b>Nama:</b> ${data.nama}</p>
+            <p><b>Status:</b><br>${data.status}</p>
+        `;
+    } else {
+        hasil.className = "result tidak";
+        hasil.innerHTML = "<b>NISN tidak ditemukan</b>";
+    }
+}
+</script>
+
+</body>
+</html>
